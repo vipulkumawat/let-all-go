@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>write</title>
+    <script>
+        function toggleFullscreen(elem) {
+            elem = elem || document.documentElement;
+            if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+
+
+        function copyToClipboard() {
+            var target = jQuery('#text');
+
+            // make it visible, so can be focused
+            target.attr('type', 'text');
+            target.focus();
+            // select all the text
+            target[0].setSelectionRange(0, target.val().length);
+
+            // copy the selection
+            var succeed;
+            try {
+                succeed = document.execCommand("copy");
+            } catch (e) {
+                succeed = false;
+            }
+
+            // hide input again
+            target.attr('type', 'hidden');
+
+            return succeed;
+        }
+
+
+        function saveTextAsFile() {
+            var textToWrite = document.getElementById('text').value;
+            var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+            var fileNameToSaveAs = "ecc.txt";
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            downloadLink.click();
+        }
+
+        function openMenu(currentoption)
+        {
+            var submenu = $(currentoption).find("ul").css("display","block");
+        }
+
+        function closeMenu(currentoption)
+        {
+            var submenu = $(currentoption).find("ul").css("display","none");
+        }
+
+        function slideUpward()
+        {
+            $("#mainmenu").slideToggle();
+        }
+    </script>
+
+
+    <!--
+
+<script type="text/javascript" src="https:	//www.google.com/jsapi">
+    </script>
+    <script type="text/javascript">
+
+      // Load the Google Transliterate API
+      google.load("elements", "1", {
+            packages: "transliteration"
+          });
+
+      function onLoad() {
+        var options = {
+            sourceLanguage:
+                google.elements.transliteration.LanguageCode.ENGLISH,
+            destinationLanguage:
+                [google.elements.transliteration.LanguageCode.HINDI],
+        //shortcutKey: 'ctrl+g',
+            transliterationEnabled: true
+        };
+
+        // Create an instance on TransliterationControl with the required
+        // options.
+        var control =
+            new google.elements.transliteration.TransliterationControl(options);
+
+        // Enable transliteration in the textbox with id
+        // 'transliterateTextarea'.
+        control.makeTransliteratable(['text']);
+      }
+      google.setOnLoadCallback(onLoad);
+    </script> -->
+</head>
+<body style="-webkit-animation: chromoColors 120s infinite;">
+
+<div class="" align="center" style="background:lightblue;" >
+
+    <audio id="bg_audio" controls preload="none" class="ng-hide" controls loop>
+        <source src="content/sound/Kendrick Lamar - HUMBLE..mp3" type="audio/mpeg">
+    </audio>
+
+
+    <div id="mainmenu" class="row" align="center" style="  background: rgba(51, 122, 183, 0.2);" class="nav navbar-nav">
+        <div class="col-sm-12">
+            <div class="col-sm-1"><p></p></div>
+            <div class="col-sm-1"><img src="logo.png" height="100px" width="100px" /></a></div>
+            <div class="col-sm-10" style="margin-top: 3.8em;">
+                <div class="col-sm-12">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li class="active"><a href="#">Write</a></li>
+                        <li><a href="#">{{vipul}}</a></li>
+                        <li><a href="#">Challanges</a></li>
+                        <li onclick="openMenu(this)" onmouseleave="closeMenu(this)"><a href="#">Experiment</a>
+                            <!-- <button type="button" data-toggle="dropdown" id="vipul" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle">experiments<span class="caret"></span></button>
+
+                          <ul class="dropdown-menu" aria-labelledby="vipul">
+                              <li class="dropdown-header">f</li>
+                              <li>1</li>
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                          </ul> -->
+
+                            <!-- <a class="dropdown-toggle" href="#">helllo</a>	 -->
+                            <ul class="dropdown-menu" style="height: auto;min-width: 150px;overflow-y: auto;">
+                                <li class="nav navbar-nav" style="width: 100%">
+                                    <div style="margin: 5px;float: left;"><b>Audio BG</b></div>
+                                    <label class="switch" style="float: right;">
+                                        <input type="checkbox">
+                                        <div class="slider"></div></label>
+                                </li>
+                                <li class="nav navbar-nav">
+                                    <div style="margin: 5px;float: left;"><b>Chromo</b></div>
+                                    <label class="switch" style="float: right;">
+                                        <input type="checkbox">
+                                        <div class="slider"></div></label>
+
+                                </li>
+                                <li class="nav navbar-nav">
+                                    <div style="margin: 5px;float: left;"><b>bg hide</b></div>
+                                    <label class="switch" style="float: right;">
+                                        <input type="checkbox">
+                                        <div class="slider"></div></label>
+
+                                </li>
+                                <li class="nav navbar-nav">
+                                    <div style="margin: 5px;float: left;"><b>DisableBs</b></div>
+                                    <label class="switch" style="float: right;">
+                                        <input type="checkbox">
+                                        <div class="slider"></div></label>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li><a href="#">Motivation</a></li>
+                        <li><a href="#" onclick="toggleFullscreen();">F</a></li>
+                        <li><a href="#" onclick="copyToClipboard();">C</a></li>
+                        <li><a href="#" onclick="saveTextAsFile();">s</a></li>
+                        <li><a href="#" value="stop">finish</a></li>
+                        <li><a href="#"><img src="#" alt="userlogo"/></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- main write content is here-->
+    </div>
+    <!-- herer for the braking the line. if you don't add p tag to it that div makes no sense to your code so be aware of it-->
+    <div id="textArea">
+        <div class="col-sm-12"><p></p></div>
+        <div class="col-sm-12"><p></p></div>
+        </br>
+        <!-- Spacing is compete here-->
+
+        <!-- here divided the whole row in 12 parts and work accoringly-->
+        <div class="col-sm-12">
+            <!-- offset -->
+            <div class="col-sm-2"><p></p></div>
+            <!-- Main content-->
+            <div class="col-sm-8">
+                <!--  -->
+                <textarea
+                    id="text"
+                    name="textField"
+                    placeholder="Enter text..."
+                    focus-me="false"
+                    ng-model="model.text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    onclick="slideUpward()" ></textarea>
+            </div>
+            <!-- offset-->
+            <div id="totalWordCount" class="col-sm-2"></div>
+        </div>
+        <!-- the div over here-->
+    </div>
+    <!-- write content is over here-->
+
+
+</div>
+
+</body>
+</html>
